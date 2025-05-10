@@ -10,13 +10,11 @@ from langchain.tools import tool
 import snowflake.connector
 from snowflake.connector.pandas_tools import write_pandas
 
-# ---------------------------------------------------------------------------
-# !!! Hard‑coded Snowflake credentials — FOR LOCAL DEMO ONLY
-# ---------------------------------------------------------------------------
+
 _SNOW_CFG: Dict[str, str] = {
-    "account": "OUVCAXB-UTC14250",
+    "account": "",
     "user": "SRINIVAS98",
-    "password": "Password123456",
+    "password": "",
     "role": "ACCOUNTADMIN",
     "warehouse": "COMPUTE_WH",
     "database": "TRIAL",
