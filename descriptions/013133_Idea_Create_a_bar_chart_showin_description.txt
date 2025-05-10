@@ -1,0 +1,1 @@
+This bar chart shows the count of industries in New Zealand Standard Industrial Classification (NZSIOC) by their corresponding codes, providing an overview of the distribution and frequency of different industries across the dataset.

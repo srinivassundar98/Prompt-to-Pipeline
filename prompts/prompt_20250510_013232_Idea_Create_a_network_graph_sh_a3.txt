@@ -1,0 +1,23 @@
+System: You are a Python data-viz expert.
+The pandas DataFrame `df` has these exact columns: 'YEAR', 'INDUSTRY_AGGREGATION_NZSIOC_ID', 'INDUSTRY_CODE_NZSIOC_ID', 'INDUSTRY_NAME_NZSIOC_ID', 'UNITS_ID', 'VARIABLE_CODE_ID', 'VARIABLE_NAME_ID', 'VARIABLE_CATEGORY_ID', 'VALUE_ID', 'INDUSTRY_CODE_ANZSIC06_ID'.
+Do not load any data. That is not needed. The data is already stored in df. Do not try to define/redefine df.Write a Plotly Express snippet without ANY comments (you may include imports) assigning the chart to variable `fig`.Make sure you close all the braces properly.Make sure you omit ALL comments
+Your last code was:
+```
+import plotly.express as px
+fig = px.pnetwork(
+    nodes=df[['INDUSTRY_NAME_NZSIOC_ID', 'INDUSTRY_CODE_ANZSIC06_ID']].stack().reset_index(name='node'),
+    links=df.groupby('INDUSTRY_AGGREGATION_NZSIOC_ID')['INDUSTRY_NAME_NZSIOC_ID'].apply(list).reset_index(name='source').merge(df.groupby('INDUSTRY_AGGREGATION_NZSIOC_ID')['INDUSTRY_NAME_NZSIOC_ID'].apply(list).reset_index(name='target'), on='INDUSTRY_NAME_NZSIOC_ID', how='cross').drop_duplicates(subset=['source', 'target'], keep='first')
+```
+It failed with error:
+```
+Traceback (most recent call last):
+  File "C:\Users\srinivas\Desktop\agent\analysis_runner.py", line 1061, in run_analysis
+    exec(textwrap.dedent(code), {}, local_ns)
+  File "<string>", line 2
+    fig = px.pnetwork(
+                     ^
+SyntaxError: '(' was never closed
+
+```
+Because your prior snippet errored, do NOT repeat it verbatim—please correct it now.
+Human: Idea: Create a network graph showing the relationships between different industries and their interactions.

@@ -1,0 +1,1 @@
+This scatterplot reveals a visual representation of the relationship between YEAR and VALUE_ID, showcasing the distribution of value IDs across different years, with each point representing a unique combination of these two variables.

@@ -1,0 +1,6 @@
+import pandas as pd
+import plotly.express as px
+df = pd.DataFrame({'VARIABLE_NAME_ID': [1, 2, 3], 'INDUSTRY_CODE_ANZSIC06_ID': [4, 5, 6]})
+fig = px.scatter_matrix(df, 
+                        dimensions=['VARIABLE_NAME_ID', 'INDUSTRY_CODE_ANZSIC06_ID'], 
+                        color='YEAR')

@@ -1,0 +1,788 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt-to-Pipeline</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --secondary: #6366f1;
+            --secondary-dark: #4f46e5;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.5;
+            color: var(--gray-800);
+            background-color: var(--gray-100);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 1.5rem 0;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        h1 {
+            font-size: 1.875rem;
+            font-weight: 700;
+        }
+        
+        header p {
+            opacity: 0.9;
+            margin-top: 0.5rem;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+        
+        .card-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+        }
+        
+        .card-header i {
+            margin-right: 0.75rem;
+            color: var(--primary);
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--gray-700);
+        }
+        
+        input[type="text"], 
+        textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--gray-300);
+            border-radius: 0.375rem;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.15s ease;
+        }
+        
+        input[type="text"]:focus, 
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+        }
+        
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            font-size: 1rem;
+            border-radius: 0.375rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        
+        .btn i {
+            margin-right: 0.5rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--secondary-dark);
+        }
+        
+        .btn:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        
+        @media (min-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr 2fr;
+            }
+        }
+        
+        .spinner {
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .tab {
+            padding: 0.75rem 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            color: var(--gray-500);
+            display: flex;
+            align-items: center;
+        }
+        
+        .tab i {
+            margin-right: 0.5rem;
+        }
+        
+        .tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 1.5rem;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .log-container {
+            background-color: var(--gray-900);
+            color: var(--gray-200);
+            padding: 1rem;
+            border-radius: 0.375rem;
+            font-family: monospace;
+            height: 350px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+        
+        .log-line {
+            margin-bottom: 0.25rem;
+            line-height: 1.4;
+        }
+        
+        .chart-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .chart-btn {
+            padding: 0.5rem 0.75rem;
+            background-color: var(--gray-200);
+            border: none;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        
+        .chart-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .chart-display {
+            border: 1px solid var(--gray-300);
+            border-radius: 0.375rem;
+            height: 500px;
+            overflow: hidden;
+        }
+        
+        .chart-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .story-container {
+            max-height: 500px;
+            overflow-y: auto;
+            padding-right: 1rem;
+            line-height: 1.6;
+        }
+        
+        .pipeline-stages {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .stage {
+            display: flex;
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            background-color: var(--gray-100);
+            border: 1px solid var(--gray-200);
+        }
+        
+        .stage.active {
+            background-color: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+        
+        .stage.completed {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+        
+        .stage.error {
+            background-color: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+        
+        .stage-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            border-radius: 9999px;
+            background-color: white;
+            border: 1px solid var(--gray-300);
+        }
+        
+        .stage.active .stage-icon {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .stage.completed .stage-icon {
+            color: var(--success);
+            border-color: var(--success);
+        }
+        
+        .stage.error .stage-icon {
+            color: var(--danger);
+            border-color: var(--danger);
+        }
+        
+        .stage-content {
+            flex: 1;
+        }
+        
+        .stage-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .stage.active .stage-title {
+            color: var(--primary);
+        }
+        
+        .stage.completed .stage-title {
+            color: var(--success);
+        }
+        
+        .stage.error .stage-title {
+            color: var(--danger);
+        }
+        
+        .stage-description {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+        }
+        
+        .stage-status {
+            width: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .stage-connector {
+            width: 1px;
+            height: 20px;
+            background-color: var(--gray-300);
+            margin-left: 1.25rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Prompt-to-Pipeline Framework</h1>
+            <p>AI-powered data pipeline with automated analysis and storytelling</p>
+        </div>
+    </header>
+    
+    <main class="container">
+        <div class="grid">
+            <!-- Left Column: Controls -->
+            <div>
+                <!-- Data Ingestion Form -->
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-upload"></i>
+                        Data Ingestion
+                    </div>
+                    <div class="card-body">
+                        <form id="ingest-form">
+                            <div class="form-group">
+                                <label for="url">Data URL</label>
+                                <input type="text" id="url" placeholder="https://example.com/data.csv" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="table-hint">Table Hint (Optional)</label>
+                                <input type="text" id="table-hint" placeholder="e.g., sales_data">
+                            </div>
+                            <button type="submit" id="start-btn" class="btn btn-primary">
+                                <i class="fas fa-play"></i> Start Pipeline
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Pipeline Progress -->
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-tasks"></i>
+                        Pipeline Progress
+                    </div>
+                    <div class="card-body">
+                        <div class="pipeline-stages">
+                            <div class="stage" id="stage-ingest">
+                                <div class="stage-icon">
+                                    <i class="fas fa-database"></i>
+                                </div>
+                                <div class="stage-content">
+                                    <div class="stage-title">Data Ingestion</div>
+                                    <div class="stage-description">Download and parse data from URL</div>
+                                </div>
+                                <div class="stage-status"></div>
+                            </div>
+                            <div class="stage-connector"></div>
+                            
+                            <div class="stage" id="stage-stage">
+                                <div class="stage-icon">
+                                    <i class="fas fa-table"></i>
+                                </div>
+                                <div class="stage-content">
+                                    <div class="stage-title">Snowflake Staging</div>
+                                    <div class="stage-description">Load data into Snowflake tables</div>
+                                </div>
+                                <div class="stage-status"></div>
+                            </div>
+                            <div class="stage-connector"></div>
+                            
+                            <div class="stage" id="stage-transform">
+                                <div class="stage-icon">
+                                    <i class="fas fa-exchange-alt"></i>
+                                </div>
+                                <div class="stage-content">
+                                    <div class="stage-title">Data Transformation</div>
+                                    <div class="stage-description">Clean, normalize and prepare data</div>
+                                </div>
+                                <div class="stage-status"></div>
+                            </div>
+                            <div class="stage-connector"></div>
+                            
+                            <div class="stage" id="stage-analyze">
+                                <div class="stage-icon">
+                                    <i class="fas fa-chart-bar"></i>
+                                </div>
+                                <div class="stage-content">
+                                    <div class="stage-title">Analysis & Visualization</div>
+                                    <div class="stage-description">Generate charts and insights</div>
+                                </div>
+                                <div class="stage-status"></div>
+                            </div>
+                            <div class="stage-connector"></div>
+                            
+                            <div class="stage" id="stage-story">
+                                <div class="stage-icon">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <div class="stage-content">
+                                    <div class="stage-title">Narrative Generation</div>
+                                    <div class="stage-description">Create data story from insights</div>
+                                </div>
+                                <div class="stage-status"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Custom Analysis Form -->
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-search"></i>
+                        Custom Analysis
+                    </div>
+                    <div class="card-body">
+                        <form id="analysis-form">
+                            <div class="form-group">
+                                <label for="analysis-request">Analysis Request</label>
+                                <textarea id="analysis-request" placeholder="Describe what you want to analyze (e.g., 'Show correlation between height and weight')"></textarea>
+                            </div>
+                            <button type="submit" id="analyze-btn" class="btn btn-secondary">
+                                <i class="fas fa-chart-line"></i> Run Analysis
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Column: Output Tabs -->
+            <div class="card">
+                <div class="tabs">
+                    <div class="tab active" data-tab="logs">
+                        <i class="fas fa-terminal"></i> Execution Logs
+                    </div>
+                    <div class="tab" data-tab="charts">
+                        <i class="fas fa-chart-bar"></i> Charts <span id="chart-count">(0)</span>
+                    </div>
+                    <div class="tab" data-tab="story">
+                        <i class="fas fa-file-alt"></i> Data Story
+                    </div>
+                </div>
+                
+                <div id="logs" class="tab-content active">
+                    <div class="log-container" id="log-container">
+                        <div class="log-line">No logs yet. Start a pipeline to see execution logs.</div>
+                    </div>
+                </div>
+                
+                <div id="charts" class="tab-content">
+                    <div id="no-charts" class="text-center">
+                        <p style="text-align: center; padding: 3rem; color: var(--gray-500); font-style: italic;">No charts generated yet. Run a pipeline to see visualizations.</p>
+                    </div>
+                    <div id="chart-content" style="display: none;">
+                        <div class="chart-selector" id="chart-selector"></div>
+                        <div class="chart-display">
+                            <iframe id="chart-iframe" class="chart-iframe" src="about:blank"></iframe>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="story" class="tab-content">
+                    <div id="no-story" class="text-center">
+                        <p style="text-align: center; padding: 3rem; color: var(--gray-500); font-style: italic;">No data story generated yet. Complete a pipeline run to generate a narrative.</p>
+                    </div>
+                    <div id="story-content" class="story-container" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer style="background-color: var(--gray-200); padding: 1rem 0; margin-top: 2rem; text-align: center; color: var(--gray-600); font-size: 0.875rem;">
+        <div class="container">
+            <p>Prompt-to-Pipeline Framework © 2025 | Created with AI-powered data processing</p>
+        </div>
+    </footer>
+    
+    <script>
+        // DOM Elements
+        const ingestForm = document.getElementById('ingest-form');
+        const analysisForm = document.getElementById('analysis-form');
+        const startBtn = document.getElementById('start-btn');
+        const analyzeBtn = document.getElementById('analyze-btn');
+        const logContainer = document.getElementById('log-container');
+        const chartSelector = document.getElementById('chart-selector');
+        const chartIframe = document.getElementById('chart-iframe');
+        const storyContent = document.getElementById('story-content');
+        const noCharts = document.getElementById('no-charts');
+        const chartContent = document.getElementById('chart-content');
+        const noStory = document.getElementById('no-story');
+        const chartCount = document.getElementById('chart-count');
+        
+        // Stage elements
+        const stages = {
+            ingest: document.getElementById('stage-ingest'),
+            stage: document.getElementById('stage-stage'),
+            transform: document.getElementById('stage-transform'),
+            analyze: document.getElementById('stage-analyze'),
+            story: document.getElementById('stage-story')
+        };
+        
+        // Tab switching
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
+            });
+        });
+        
+        // Form submissions
+        ingestForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const url = document.getElementById('url').value;
+            const tableHint = document.getElementById('table-hint').value;
+            
+            if (!url) {
+                alert('Please enter a URL');
+                return;
+            }
+            
+            startBtn.disabled = true;
+            startBtn.innerHTML = '<i class="fas fa-spinner spinner"></i> Processing...';
+            
+            try {
+                await fetch('/api/ingest', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        url,
+                        table_hint: tableHint || undefined,
+                    }),
+                });
+                
+                // Switch to logs tab
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                document.querySelector('.tab[data-tab="logs"]').classList.add('active');
+                document.getElementById('logs').classList.add('active');
+                
+                // Start polling for status
+                startStatusPolling();
+                
+            } catch (error) {
+                console.error('Error starting pipeline:', error);
+                logContainer.innerHTML += `<div class="log-line">Error: ${error.message}</div>`;
+                startBtn.disabled = false;
+                startBtn.innerHTML = '<i class="fas fa-play"></i> Start Pipeline';
+            }
+        });
+        
+        analysisForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const request = document.getElementById('analysis-request').value;
+            
+            if (!request) {
+                alert('Please enter an analysis request');
+                return;
+            }
+            
+            analyzeBtn.disabled = true;
+            analyzeBtn.innerHTML = '<i class="fas fa-spinner spinner"></i> Running...';
+            
+            try {
+                await fetch('/api/analysis', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        request,
+                    }),
+                });
+                
+                // Switch to logs tab
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                document.querySelector('.tab[data-tab="logs"]').classList.add('active');
+                document.getElementById('logs').classList.add('active');
+                
+                // Start polling for status
+                startStatusPolling();
+                
+            } catch (error) {
+                console.error('Error running analysis:', error);
+                logContainer.innerHTML += `<div class="log-line">Error: ${error.message}</div>`;
+                analyzeBtn.disabled = false;
+                analyzeBtn.innerHTML = '<i class="fas fa-chart-line"></i> Run Analysis';
+            }
+        });
+        
+        // Status polling
+        let pollingInterval;
+        
+        function startStatusPolling() {
+            // Clear any existing interval
+            if (pollingInterval) {
+                clearInterval(pollingInterval);
+            }
+            
+            // Poll every second
+            pollingInterval = setInterval(fetchStatus, 1000);
+        }
+        
+        async function fetchStatus() {
+            try {
+                const response = await fetch('/api/status');
+                const data = await response.json();
+                
+                updateUI(data);
+                
+                // If completed or error, stop polling
+                if (data.status === 'completed' || data.status === 'error') {
+                    clearInterval(pollingInterval);
+                    startBtn.disabled = false;
+                    startBtn.innerHTML = '<i class="fas fa-play"></i> Start Pipeline';
+                    analyzeBtn.disabled = false;
+                    analyzeBtn.innerHTML = '<i class="fas fa-chart-line"></i> Run Analysis';
+                }
+            } catch (error) {
+                console.error('Error fetching status:', error);
+            }
+        }
+        
+        function updateUI(data) {
+            // Update logs
+            logContainer.innerHTML = '';
+            data.logs.forEach(log => {
+                logContainer.innerHTML += `<div class="log-line">${log}</div>`;
+            });
+            logContainer.scrollTop = logContainer.scrollHeight;
+            
+            // Update stage indicators
+            Object.keys(stages).forEach(stage => {
+                stages[stage].className = 'stage';
+                stages[stage].querySelector('.stage-status').innerHTML = '';
+            });
+            
+            // Set current stage
+            if (data.current_stage && stages[data.current_stage]) {
+                if (data.status === 'running') {
+                    stages[data.current_stage].classList.add('active');
+                    stages[data.current_stage].querySelector('.stage-status').innerHTML = '<i class="fas fa-spinner spinner"></i>';
+                } else if (data.status === 'error') {
+                    stages[data.current_stage].classList.add('error');
+                    stages[data.current_stage].querySelector('.stage-status').innerHTML = '<i class="fas fa-times"></i>';
+                }
+                
+                // Mark previous stages as completed
+                const stageOrder = ['ingest', 'stage', 'transform', 'analyze', 'story'];
+                const currentIndex = stageOrder.indexOf(data.current_stage);
+                
+                for (let i = 0; i < currentIndex; i++) {
+                    stages[stageOrder[i]].classList.add('completed');
+                    stages[stageOrder[i]].querySelector('.stage-status').innerHTML = '<i class="fas fa-check"></i>';
+                }
+                
+                // If completed, mark the current stage as completed too
+                if (data.status === 'completed') {
+                    stages[data.current_stage].classList.add('completed');
+                    stages[data.current_stage].querySelector('.stage-status').innerHTML = '<i class="fas fa-check"></i>';
+                }
+            }
+            
+            // Update charts
+            if (data.charts && data.charts.length > 0) {
+                chartCount.textContent = `(${data.charts.length})`;
+                noCharts.style.display = 'none';
+                chartContent.style.display = 'block';
+                
+                // Create chart buttons
+                chartSelector.innerHTML = '';
+                data.charts.forEach((chart, index) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'chart-btn';
+                    btn.textContent = `Chart ${index + 1}`;
+                    
+                    // Select first chart by default
+                    if (index === 0) {
+                        btn.classList.add('active');
+                        chartIframe.src = chart;
+                    }
+                    
+                    btn.addEventListener('click', () => {
+                        document.querySelectorAll('.chart-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        chartIframe.src = chart;
+                    });
+                    
+                    chartSelector.appendChild(btn);
+                });
+            } else {
+                chartCount.textContent = '(0)';
+                noCharts.style.display = 'block';
+                chartContent.style.display = 'none';
+            }
+            
+            // Update story
+            if (data.story) {
+                noStory.style.display = 'none';
+                storyContent.style.display = 'block';
+                storyContent.innerHTML = data.story.replace(/\n/g, '<br>');
+            } else {
+                noStory.style.display = 'block';
+                storyContent.style.display = 'none';
+            }
+        }
+        
+        // Check initial status on page load
+        fetchStatus();
+    </script>
+</body>
+</html>

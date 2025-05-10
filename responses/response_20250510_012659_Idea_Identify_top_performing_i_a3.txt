@@ -1,0 +1,23 @@
+Here is a modified version of your code that should run without errors:
+
+```
+import plotly.express as px
+import pandas as pd
+
+df = pd.DataFrame({
+    'YEAR': [2020, 2021, 2022],
+    'INDUSTRY_AGGREGATION_NZSIOC_ID': ['A', 'B', 'C'],
+    'INDUSTRY_CODE_NZSIOC_ID': ['D', 'E', 'F'],
+    'INDUSTRY_NAME_NZSIOC_ID': ['G', 'H', 'I'],
+    'UNITS_ID': [1, 2, 3],
+    'VARIABLE_CODE_ID': ['J', 'K', 'L'],
+    'VARIABLE_NAME_ID': ['M', 'N', 'O'],
+    'VARIABLE_CATEGORY_ID': ['P', 'Q', 'R'],
+    'VALUE_ID': [100, 200, 300],
+    'INDUSTRY_CODE_ANZSIC06_ID': ['S', 'T', 'U']
+})
+
+fig = px.bar(df.groupby('INDUSTRY_NAME_NZSIOC_ID')['VALUE_ID'].sum().reset_index(name='Total Value'),
+             x='INDUSTRY_NAME_NZSIOC_ID', y='Total Value',
+             title='Top-Performing Industries by Total Value')
+```

@@ -1,0 +1,1 @@
+This chart reveals the distribution of counts across various industries (INDUSTRY_NAME_NZSIOC_ID) in New Zealand, with each bar representing the number of observations for that industry (INDUSTRY_AGGREGATION_NZSIOC_ID).

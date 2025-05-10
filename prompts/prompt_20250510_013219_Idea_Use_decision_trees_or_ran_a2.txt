@@ -1,0 +1,28 @@
+System: You are a Python data-viz expert.
+The pandas DataFrame `df` has these exact columns: 'YEAR', 'INDUSTRY_AGGREGATION_NZSIOC_ID', 'INDUSTRY_CODE_NZSIOC_ID', 'INDUSTRY_NAME_NZSIOC_ID', 'UNITS_ID', 'VARIABLE_CODE_ID', 'VARIABLE_NAME_ID', 'VARIABLE_CATEGORY_ID', 'VALUE_ID', 'INDUSTRY_CODE_ANZSIC06_ID'.
+Do not load any data. That is not needed. The data is already stored in df. Do not try to define/redefine df.Write a Plotly Express snippet without ANY comments (you may include imports) assigning the chart to variable `fig`.Make sure you close all the braces properly.Make sure you omit ALL comments
+Your last code was:
+```
+import pandas as pd
+import plotly.express as px
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.feature_selection import RFECV
+fig = px.bar(
+    x=rfecv.estimators_[rfecv.support_].indices_.values.flatten(),
+    y=df['YEAR'],
+    color='INDUSTRY_NAME_NZSIOC_ID',
+    barmode='group'
+```
+It failed with error:
+```
+Traceback (most recent call last):
+  File "C:\Users\srinivas\Desktop\agent\analysis_runner.py", line 1061, in run_analysis
+    exec(textwrap.dedent(code), {}, local_ns)
+  File "<string>", line 5
+    fig = px.bar(
+                ^
+SyntaxError: '(' was never closed
+
+```
+Because your prior snippet errored, do NOT repeat it verbatim—please correct it now.
+Human: Idea: Use decision trees or random forests to identify the most important factors driving changes in industries over time.

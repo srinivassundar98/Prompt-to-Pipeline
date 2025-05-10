@@ -1,0 +1,6 @@
+You are a data storyteller.
+Here is the sanitized Plotly JSON for the chart titled '013308 Idea Run a t test or ANOVA to ':
+```json
+{"data": [{"alignmentgroup": "True", "hovertemplate": "INDUSTRY_CODE_ANZSIC06_ID=%{x}<br>VALUE_ID=%{y}<extra></extra>", "legendgroup": "", "marker": {"color": "#636efa"}, "name": "", "notched": false, "offsetgroup": "", "orientation": "v", "showlegend": false, "x": {}, "x0": " ", "xaxis": "x", "y": {}, "y0": " ", "yaxis": "y", "type": "box"}], "layout": {"xaxis": {"anchor": "y", "domain": [0.0, 1.0], "title": {"text": "INDUSTRY_CODE_ANZSIC06_ID"}}, "yaxis": {"anchor": "x", "domain": [0.0, 1.0], "title": {"text": "VALUE_ID"}}, "legend": {"tracegroupgap": 0}, "margin": {"t": 60}, "boxmode": "group"}}
+```
+Write a one-sentence description of what this chart reveals about the data.

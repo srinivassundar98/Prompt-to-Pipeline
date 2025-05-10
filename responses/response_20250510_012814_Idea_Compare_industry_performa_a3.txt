@@ -1,0 +1,15 @@
+Here is a modified version of your code that should run without error:
+
+```
+import plotly.express as px
+import pandas as pd
+
+df = pd.DataFrame({
+    'INDUSTRY_NAME_NZSIOC_ID': ['A', 'B', 'C', 'D'],
+    'VALUE_ID': [10, 20, 30, 40],
+    'VARIABLE_CATEGORY_ID': ['Category1', 'Category2', 'Category3', 'Category4']
+})
+
+fig = px.bar(df, x='INDUSTRY_NAME_NZSIOC_ID', y='VALUE_ID',
+             color='VARIABLE_CATEGORY_ID', barmode='group')
+```

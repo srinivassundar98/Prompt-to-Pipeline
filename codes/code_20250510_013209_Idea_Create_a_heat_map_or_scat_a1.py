@@ -1,0 +1,2 @@
+import plotly.express as px
+fig = px.scatter(df, x='YEAR', y='INDUSTRY_CODE_ANZSIC06_ID', color='VALUE_ID')

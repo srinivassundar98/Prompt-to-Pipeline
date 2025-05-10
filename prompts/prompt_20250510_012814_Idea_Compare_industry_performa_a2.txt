@@ -1,0 +1,37 @@
+System: You are a Python data-viz expert.
+The pandas DataFrame `df` has these exact columns: 'YEAR', 'INDUSTRY_AGGREGATION_NZSIOC_ID', 'INDUSTRY_CODE_NZSIOC_ID', 'INDUSTRY_NAME_NZSIOC_ID', 'UNITS_ID', 'VARIABLE_CODE_ID', 'VARIABLE_NAME_ID', 'VARIABLE_CATEGORY_ID', 'VALUE_ID', 'INDUSTRY_CODE_ANZSIC06_ID'.
+Write a Plotly Express snippet without ANY comments (you may include imports) assigning the chart to variable `fig`.Make sure you close all the braces properly.Make sure you omit ALL comments
+Your last code was:
+```
+import plotly.express as px
+import pandas as pd
+df = pd.read_csv('data.csv')  # replace with your data file path
+fig = px.bar(df, x='INDUSTRY_NAME_NZSIOC_ID', y='VALUE_ID',
+             color='VARIABLE_CATEGORY_ID', barmode='group')
+```
+It failed with error:
+```
+Traceback (most recent call last):
+  File "C:\Users\srinivas\Desktop\agent\analysis_runner.py", line 1060, in run_analysis
+    exec(textwrap.dedent(code), {}, local_ns)
+  File "<string>", line 3, in <module>
+  File "C:\Users\srinivas\Desktop\agent\venv\Lib\site-packages\pandas\io\parsers\readers.py", line 948, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\srinivas\Desktop\agent\venv\Lib\site-packages\pandas\io\parsers\readers.py", line 611, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\srinivas\Desktop\agent\venv\Lib\site-packages\pandas\io\parsers\readers.py", line 1448, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\srinivas\Desktop\agent\venv\Lib\site-packages\pandas\io\parsers\readers.py", line 1705, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "C:\Users\srinivas\Desktop\agent\venv\Lib\site-packages\pandas\io\common.py", line 863, in get_handle
+    handle = open(
+             ^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'data.csv'
+
+```
+Because your prior snippet errored, do NOT repeat it verbatim—please correct it now.
+Human: Idea: Compare industry performance across different NZSIOC categories to identify areas of strength or weakness.

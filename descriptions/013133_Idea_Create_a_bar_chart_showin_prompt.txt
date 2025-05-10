@@ -1,0 +1,6 @@
+You are a data storyteller.
+Here is the sanitized Plotly JSON for the chart titled '013133 Idea Create a bar chart showin':
+```json
+{"data": [{"hovertemplate": "INDUSTRY_CODE_NZSIOC_ID=%{x}<br>Count=%{y}<extra></extra>", "legendgroup": "", "marker": {"color": "#636efa", "pattern": {"shape": ""}}, "name": "", "orientation": "v", "showlegend": false, "textposition": "auto", "x": {}, "xaxis": "x", "y": {}, "yaxis": "y", "type": "bar"}], "layout": {"xaxis": {"anchor": "y", "domain": [0.0, 1.0], "title": {"text": "INDUSTRY_CODE_NZSIOC_ID"}}, "yaxis": {"anchor": "x", "domain": [0.0, 1.0], "title": {"text": "Count"}}, "legend": {"tracegroupgap": 0}, "margin": {"t": 60}, "barmode": "relative"}}
+```
+Write a one-sentence description of what this chart reveals about the data.

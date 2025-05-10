@@ -1,0 +1,5 @@
+import plotly.express as px
+from sklearn.decomposition import PCA
+pca = PCA(n_components=2)
+df_pca = pca.fit_transform(df.drop(['YEAR', 'INDUSTRY_AGGREGATION_NZSIOC_ID'], axis=1))
+fig = px.scatter(df_pca, x=0, y=1)

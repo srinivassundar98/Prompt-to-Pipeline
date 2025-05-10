@@ -1,0 +1,1 @@
+This box plot reveals the distribution and variability of VALUE_ID values across different VARIABLE_CATEGORY_ID categories, providing insight into the range, median, and outliers within each category.

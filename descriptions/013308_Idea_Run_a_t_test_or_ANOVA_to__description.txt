@@ -1,0 +1,1 @@
+This box plot reveals the distribution and comparison of values across different industries, as represented by the INDUSTRY_CODE_ANZSIC06_ID, with the VALUE_ID providing insight into the magnitude of these differences.

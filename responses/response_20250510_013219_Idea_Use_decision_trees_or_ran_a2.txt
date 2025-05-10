@@ -1,0 +1,7 @@
+Here is a corrected Plotly Express snippet without any comments:
+
+```python
+import pandas as pd
+import plotly.express as px
+fig = px.scatter(df, x='YEAR', y='VALUE_ID', color='INDUSTRY_NAME_NZSIOC_ID')
+```

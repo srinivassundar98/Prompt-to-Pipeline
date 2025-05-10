@@ -1,0 +1,6 @@
+You are a data storyteller.
+Here is the sanitized Plotly JSON for the chart titled '013214 Idea Run a regression analysis':
+```json
+{"data": [{"hovertemplate": "YEAR=%{x}<br>VALUE_ID=%{y}<extra></extra>", "legendgroup": "", "marker": {"color": "#636efa", "symbol": "circle"}, "mode": "markers", "name": "", "showlegend": false, "x": {}, "xaxis": "x", "y": {}, "yaxis": "y", "type": "scattergl"}], "layout": {"xaxis": {"anchor": "y", "domain": [0.0, 1.0], "title": {"text": "YEAR"}}, "yaxis": {"anchor": "x", "domain": [0.0, 1.0], "title": {"text": "VALUE_ID"}}, "legend": {"tracegroupgap": 0}, "margin": {"t": 60}}}
+```
+Write a one-sentence description of what this chart reveals about the data.

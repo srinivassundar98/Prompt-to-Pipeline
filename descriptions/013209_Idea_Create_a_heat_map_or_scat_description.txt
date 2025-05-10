@@ -1,0 +1,1 @@
+This chart appears to be a scatter plot showing the relationship between year and industry code (ANZSIC06 ID) with varying marker colors representing different values, suggesting that there may be trends or patterns in the data across industries and time periods.
